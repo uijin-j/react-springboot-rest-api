@@ -1,4 +1,4 @@
-package org.tools.shop_gamza;
+package org.devcourse.shop_gamza;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
