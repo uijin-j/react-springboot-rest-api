@@ -6,9 +6,18 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT DISTINCT p FROM Product p LEFT JOIN FETCH p.coverImage")
     List<Product> findAllWithCoverImage();
+
+    @Query("SELECT DISTINCT p FROM Product p " +
+            "LEFT JOIN FETCH p.coverImage " +
+            "LEFT JOIN FETCH p.category " +
+            "LEFT JOIN FETCH p.images i " +
+            "LEFT JOIN FETCH i.image " +
+            "WHERE p.id = :id")
+    Optional<Product> findByIdWithCoverImageAndCategoryAndImages(Long id);
 }

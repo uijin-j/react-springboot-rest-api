@@ -57,4 +57,12 @@ public class ProductApiController {
 
         return ApiResponse.ok(data);
     }
+
+    @GetMapping("/{id}")
+    public ApiResponse<ProductDetailResponse> findProduct(@PathVariable Long id) {
+        Product product = productService.findById(id);
+        ProductDetailResponse data = ProductDetailResponse.of(product);
+
+        return ApiResponse.ok(data);
+    }
 }

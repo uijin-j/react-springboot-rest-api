@@ -1,5 +1,6 @@
 package org.devcourse.shop_gamza.service.product;
 
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.domain.category.Category;
 import org.devcourse.shop_gamza.domain.image.Image;
@@ -42,5 +43,10 @@ public class ProductService {
 
     public List<Product> findAll() {
         return productRepository.findAllWithCoverImage();
+    }
+
+    public Product findById(Long id) {
+        return productRepository.findByIdWithCoverImageAndCategoryAndImages(id)
+                .orElseThrow(() -> new EntityNotFoundException("아이디 '%d'에 해당하는 상품이 존재하지 않습니다." .formatted(id)));
     }
 }
