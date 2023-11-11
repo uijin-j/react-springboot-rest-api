@@ -48,11 +48,8 @@ CREATE TABLE image (
 
 CREATE TABLE product_image (
     product_image_id    BIGINT AUTO_INCREMENT,
-    is_cover_image      TINYINT DEFAULT false,
     product_id          BIGINT NOT NULL,
     image_id            BIGINT NOT NULL,
-    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_product_image_id PRIMARY KEY (product_image_id),
     CONSTRAINT fk_product_id
         FOREIGN KEY (product_id) REFERENCES product(product_id),
@@ -102,11 +99,8 @@ CREATE TABLE image (
 
 CREATE TABLE product_image (
     product_image_id    BIGINT AUTO_INCREMENT,
-    is_cover_image      TINYINT DEFAULT false,
     product_id          BIGINT NOT NULL,
     image_id            BIGINT NOT NULL,
-    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_product_image_id PRIMARY KEY (product_image_id),
     CONSTRAINT fk_product_id
         FOREIGN KEY (product_id) REFERENCES product(product_id),

@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.devcourse.shop_gamza.domain.image.Image;
 
-import static java.lang.Boolean.FALSE;
-
 @Entity
 @Builder
 @Getter
@@ -16,12 +14,11 @@ public class ProductImage {
     @Column(name = "product_image_id")
     private Long id;
 
-    @Builder.Default
-    private Boolean isCoverImage = FALSE;
-
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "product_id")
     private Product product;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @JoinColumn(name = "image_id")
     private Image image;
 }
