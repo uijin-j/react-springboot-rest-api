@@ -3,8 +3,15 @@ package org.devcourse.shop_gamza.domain.product.vo;
 import jakarta.persistence.Embeddable;
 import jakarta.validation.constraints.AssertTrue;
 
+import static org.devcourse.shop_gamza.util.ValidationUtils.*;
+
 @Embeddable
 public record Stock(Integer quantity) {
+    public Stock(Integer quantity) {
+        validateQuantity(quantity);
+        this.quantity = quantity;
+    }
+
     public static Stock create(Integer quantity) {
         return new Stock(quantity);
     }
@@ -15,7 +22,8 @@ public record Stock(Integer quantity) {
     }
 
     @AssertTrue
-    public boolean isValidQuantity() {
-        return quantity != null && quantity >= 0;
+    public void validateQuantity(Integer quantity) {
+        requireNonNull(quantity, "재고 수량은 null일 수 없습니다.");
+        requireNonNegative(quantity, "재고 수량은 음수일 수 없습니다.");
     }
 }
