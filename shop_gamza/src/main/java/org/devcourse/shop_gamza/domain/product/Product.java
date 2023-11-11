@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.devcourse.shop_gamza.domain.BaseTimeEntity;
 import org.devcourse.shop_gamza.domain.category.Category;
+import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.vo.Money;
 import org.devcourse.shop_gamza.domain.product.vo.Stock;
 
@@ -40,6 +41,10 @@ public class Product extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn(name = "cover_image_id")
+    private Image coverImage;
 
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> images;

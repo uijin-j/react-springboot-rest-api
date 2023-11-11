@@ -27,11 +27,14 @@ CREATE TABLE product (
     selling_type    VARCHAR(20) NOT NULL ,
     stock           INT NOT NULL,
     category_id     BIGINT NOT NULL,
+    cover_image_id  BIGINT,
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_product_id PRIMARY KEY (product_id),
     CONSTRAINT fk_category_id
-        FOREIGN KEY (category_id) REFERENCES category(category_id)
+        FOREIGN KEY (category_id) REFERENCES category(category_id),
+    CONSTRAINT fk_cover_image_id
+        FOREIGN KEY (cover_image_id) REFERENCES image(image_id)
 );
 
 CREATE TABLE image (
