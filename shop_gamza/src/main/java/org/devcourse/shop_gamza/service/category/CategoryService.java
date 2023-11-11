@@ -31,7 +31,7 @@ public class CategoryService {
     }
     public Category findById(Long id) {
         Optional<Category> category = categoryRepository.findById(id);
-        return category.orElseThrow(() -> new EntityNotFoundException("해당 카테고리 아이디를 가진 카테고리가 없습니다."));
+        return category.orElseThrow(() -> new EntityNotFoundException("아이디 '%d'에 해당하는 카테고리가 존재하지 않습니다." .formatted(id)));
     }
 
     @Transactional
@@ -40,6 +40,6 @@ public class CategoryService {
 
         if(categoryRepository.existsById(id)) {
             categoryRepository.deleteById(id);
-        } else throw new EntityNotFoundException("해당 카테고리 아이디를 가진 카테고리가 없습니다.");
+        } else throw new EntityNotFoundException("아이디 '%d'에 해당하는 카테고리가 존재하지 않습니다." .formatted(id));
     }
 }
