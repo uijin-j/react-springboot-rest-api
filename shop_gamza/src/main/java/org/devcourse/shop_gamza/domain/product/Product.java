@@ -2,10 +2,12 @@ package org.devcourse.shop_gamza.domain.product;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.devcourse.shop_gamza.domain.*;
+import org.devcourse.shop_gamza.domain.BaseTimeEntity;
 import org.devcourse.shop_gamza.domain.category.Category;
 import org.devcourse.shop_gamza.domain.product.vo.Money;
 import org.devcourse.shop_gamza.domain.product.vo.Stock;
+
+import java.util.List;
 
 @Entity
 @Builder
@@ -38,4 +40,7 @@ public class Product extends BaseTimeEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Category category;
+
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
+    private List<ProductImage> images;
 }

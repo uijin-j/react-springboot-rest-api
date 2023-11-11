@@ -4,8 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 import org.devcourse.shop_gamza.domain.image.Image;
 
-import static java.lang.Boolean.*;
-import static lombok.Builder.*;
+import static java.lang.Boolean.FALSE;
 
 @Entity
 @Builder
@@ -17,12 +16,12 @@ public class ProductImage {
     @Column(name = "product_image_id")
     private Long id;
 
-    @Default
+    @Builder.Default
     private Boolean isCoverImage = FALSE;
 
     @ManyToOne(fetch = FetchType.LAZY)
     private Product product;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Image image;
 }
