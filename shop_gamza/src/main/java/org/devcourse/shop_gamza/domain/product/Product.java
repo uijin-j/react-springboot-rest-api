@@ -8,6 +8,7 @@ import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.vo.Money;
 import org.devcourse.shop_gamza.domain.product.vo.Stock;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -40,12 +41,24 @@ public class Product extends BaseTimeEntity {
     private Stock stock;
 
     @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
 
     @OneToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    @PrimaryKeyJoinColumn(name = "cover_image_id")
+    @JoinColumn(name = "cover_image_id")
     private Image coverImage;
 
+    @Builder.Default
     @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
-    private List<ProductImage> images;
+    private List<ProductImage> images = new ArrayList<>();
+
+
+    public void addImage(Image image) {
+        ProductImage productImage =  ProductImage.builder()
+                .product(this)
+                .image(image)
+                .build();
+
+        this.images.add(productImage);
+    }
 }

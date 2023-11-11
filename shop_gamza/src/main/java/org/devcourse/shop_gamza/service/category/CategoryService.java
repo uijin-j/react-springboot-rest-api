@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.devcourse.shop_gamza.util.ValidationUtils.requireNonNull;
 
@@ -27,6 +28,10 @@ public class CategoryService {
 
     public List<Category> findAll() {
         return categoryRepository.findAll();
+    }
+    public Category findById(Long id) {
+        Optional<Category> category = categoryRepository.findById(id);
+        return category.orElseThrow(() -> new EntityNotFoundException("해당 카테고리 아이디를 가진 카테고리가 없습니다."));
     }
 
     @Transactional
