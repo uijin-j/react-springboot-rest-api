@@ -12,3 +12,5 @@ spring:
         default_batch_fetch_size: 100
     hibernate:
       ddl-auto: none
+
+file.dir: "/Users/uijin/Devcourse/project_01/react-springboot-rest-api/shop_gamza/src/main/resources/file/"
