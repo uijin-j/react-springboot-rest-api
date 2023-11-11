@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.controller.api.ApiResponse;
 import org.devcourse.shop_gamza.domain.category.Category;
 import org.devcourse.shop_gamza.dto.CategoryDTO;
-import org.devcourse.shop_gamza.service.CategoryService;
+import org.devcourse.shop_gamza.service.category.CategoryService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;

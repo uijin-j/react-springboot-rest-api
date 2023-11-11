@@ -1,9 +1,9 @@
-package org.devcourse.shop_gamza.service;
+package org.devcourse.shop_gamza.service.category;
 
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.domain.category.Category;
-import org.devcourse.shop_gamza.repositoy.CategoryRepository;
+import org.devcourse.shop_gamza.repositoy.category.CategoryRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

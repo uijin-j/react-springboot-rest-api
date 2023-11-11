@@ -1,4 +1,4 @@
-package org.devcourse.shop_gamza.repositoy;
+package org.devcourse.shop_gamza.repositoy.category;
 
 import org.devcourse.shop_gamza.domain.category.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
