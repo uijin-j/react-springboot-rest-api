@@ -23,7 +23,7 @@ public class ImageApiController {
     }
 
     @PostMapping
-    public void uploadFile(@ModelAttribute MultipartFile image) throws IOException {
+    public void uploadImage(@ModelAttribute MultipartFile image) throws IOException {
         fileService.storeFile(image);
     }
 }
