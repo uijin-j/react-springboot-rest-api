@@ -1,5 +1,6 @@
 package org.devcourse.shop_gamza.service;
 
+import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.domain.image.Image;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -12,11 +13,12 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
+@RequiredArgsConstructor
 public class FileService {
     @Value("${file.dir}")
     private String fileDir;
 
-    public List<Image> storeFiles(List<MultipartFile> multipartFiles) throws IOException {
+    public List<Image> storeFiles(List<MultipartFile> multipartFiles) {
         List<Image> storeFileResult = new ArrayList<>();
         for (MultipartFile file : multipartFiles) {
             if (!file.isEmpty()) {
@@ -26,14 +28,19 @@ public class FileService {
         return storeFileResult;
     }
 
-    public Image storeFile(MultipartFile file) throws IOException {
+    public Image storeFile(MultipartFile file) {
         if (file.isEmpty()) {
             return null;
         }
 
         String originalFilename = file.getOriginalFilename();
         String storeFileName = createStoreFileName(originalFilename);
-        file.transferTo(new File(getFullPath(storeFileName)));
+
+        try {
+            file.transferTo(new File(getFullPath(storeFileName)));
+        } catch (IOException e) {
+            return null;
+        }
 
         return Image.builder()
                 .uploadFileName(originalFilename)
@@ -45,13 +52,13 @@ public class FileService {
         return fileDir + filename;
     }
 
-    private String createStoreFileName(String originalFilename) { //uuid로 서버에 저장될 파일명 생성
+    private String createStoreFileName(String originalFilename) {
         String ext = extractExt(originalFilename);
         String uuid = UUID.randomUUID().toString();
         return uuid + "." + ext;
     }
 
-    private String extractExt(String originalFilename) { //png와 같은 확장자 추출!
+    private String extractExt(String originalFilename) {
         int pos = originalFilename.lastIndexOf(".");
         return originalFilename.substring(pos + 1);
     }
