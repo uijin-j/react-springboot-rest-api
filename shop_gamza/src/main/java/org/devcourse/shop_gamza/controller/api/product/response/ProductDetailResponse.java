@@ -1,4 +1,4 @@
-package org.devcourse.shop_gamza.controller.api.product.request;
+package org.devcourse.shop_gamza.controller.api.product.response;
 
 import lombok.Builder;
 import org.devcourse.shop_gamza.domain.category.Category;

@@ -10,6 +10,8 @@ import org.devcourse.shop_gamza.service.product.request.ProductCreateServiceRequ
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 @Transactional(readOnly = true)
 @RequiredArgsConstructor
@@ -36,5 +38,9 @@ public class ProductService {
         }
 
         return productRepository.save(product);
+    }
+
+    public List<Product> findAll() {
+        return productRepository.findAllWithCoverImage();
     }
 }

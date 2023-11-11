@@ -3,7 +3,8 @@ package org.devcourse.shop_gamza.controller.api.product;
 import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.controller.api.ApiResponse;
 import org.devcourse.shop_gamza.controller.api.product.request.ProductCreateRequest;
-import org.devcourse.shop_gamza.controller.api.product.request.ProductDetailResponse;
+import org.devcourse.shop_gamza.controller.api.product.response.ProductDetailResponse;
+import org.devcourse.shop_gamza.controller.api.product.response.ProductListResponse;
 import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.domain.product.vo.Money;
@@ -12,10 +13,7 @@ import org.devcourse.shop_gamza.service.FileService;
 import org.devcourse.shop_gamza.service.product.ProductService;
 import org.devcourse.shop_gamza.service.product.request.ProductCreateServiceRequest;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -32,8 +30,6 @@ public class ProductApiController {
     public ApiResponse<ProductDetailResponse> createProduct(@Validated @ModelAttribute ProductCreateRequest request) {
         Image coverImage = fileService.storeFile(request.coverImage());
         List<Image> images = fileService.storeFiles(request.images());
-
-        System.out.println("createProduct called!");
 
         ProductCreateServiceRequest serviceRequest = ProductCreateServiceRequest.builder()
                 .name(request.name())
@@ -52,4 +48,13 @@ public class ProductApiController {
         return ApiResponse.of(CREATED, data);
     }
 
+    @GetMapping
+    public ApiResponse<List<ProductListResponse>> findAllProducts() {
+        List<Product> products = productService.findAll();
+        List<ProductListResponse> data = products.stream()
+                .map(ProductListResponse::of)
+                .toList();
+
+        return ApiResponse.ok(data);
+    }
 }
