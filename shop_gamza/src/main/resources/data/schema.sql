@@ -6,10 +6,10 @@ CREATE DATABASE test_gamza_database;
 
 USE gamza_database;
 
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS product_images;
+DROP TABLE IF EXISTS images;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
 
 CREATE TABLE categories (
     category_id     BIGINT AUTO_INCREMENT,
@@ -35,7 +35,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE images (
-    image_id            BIGINT NOT NULL,
+    image_id            BIGINT AUTO_INCREMENT,
     upload_file_name    VARCHAR(255),
     store_file_name     VARCHAR(255) NOT NULL,
     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -44,7 +44,7 @@ CREATE TABLE images (
 );
 
 CREATE TABLE product_images (
-    product_image_id    BIGINT NOT NULL,
+    product_image_id    BIGINT AUTO_INCREMENT,
     is_cover_image      TINYINT DEFAULT false,
     product_id          BIGINT NOT NULL,
     image_id            BIGINT NOT NULL,
@@ -60,10 +60,10 @@ CREATE TABLE product_images (
 #  테스트 데이터 베이스 DDL
 USE test_gamza_database;
 
-DROP TABLE IF EXISTS categories;
-DROP TABLE IF EXISTS products;
-DROP TABLE IF EXISTS images;
 DROP TABLE IF EXISTS product_images;
+DROP TABLE IF EXISTS images;
+DROP TABLE IF EXISTS products;
+DROP TABLE IF EXISTS categories;
 
 CREATE TABLE categories (
     category_id     BIGINT AUTO_INCREMENT,
@@ -89,7 +89,7 @@ CREATE TABLE products (
 );
 
 CREATE TABLE images (
-    image_id            BIGINT NOT NULL,
+    image_id            BIGINT AUTO_INCREMENT,
     upload_file_name    VARCHAR(255),
     store_file_name     VARCHAR(255) NOT NULL,
     created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -98,7 +98,7 @@ CREATE TABLE images (
 );
 
 CREATE TABLE product_images (
-    product_image_id    BIGINT NOT NULL,
+    product_image_id    BIGINT AUTO_INCREMENT,
     is_cover_image      TINYINT DEFAULT false,
     product_id          BIGINT NOT NULL,
     image_id            BIGINT NOT NULL,
