@@ -14,6 +14,7 @@ import java.util.List;
 @Entity
 @Builder
 @Getter
+@Setter
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseTimeEntity {
@@ -61,4 +62,9 @@ public class Product extends BaseTimeEntity {
 
         this.images.add(productImage);
     }
+
+    public void changeName(String name) {
+        this.name = name;
+    }
+
 }

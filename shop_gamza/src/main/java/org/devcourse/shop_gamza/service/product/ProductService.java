@@ -8,8 +8,10 @@ import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.repositoy.product.ProductRepository;
 import org.devcourse.shop_gamza.service.category.CategoryService;
 import org.devcourse.shop_gamza.service.product.request.ProductCreateServiceRequest;
+import org.devcourse.shop_gamza.service.product.request.ProductUpdateServiceRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 
 import java.util.List;
 
@@ -21,7 +23,7 @@ public class ProductService {
     private final CategoryService categoryService;
 
     @Transactional
-    public Product save(ProductCreateServiceRequest request) {
+    public Product save(@Validated ProductCreateServiceRequest request) {
         Category category = categoryService.findById(request.categoryId());
 
         Product product = Product.builder()
@@ -48,5 +50,23 @@ public class ProductService {
     public Product findById(Long id) {
         return productRepository.findByIdWithCoverImageAndCategoryAndImages(id)
                 .orElseThrow(() -> new EntityNotFoundException("아이디 '%d'에 해당하는 상품이 존재하지 않습니다." .formatted(id)));
+    }
+
+    @Transactional
+    public Long updateProduct(Long id, @Validated ProductUpdateServiceRequest request) {
+        Product product = findById(id);
+
+        request.name().ifPresent(product::setName);
+        request.price().ifPresent(product::setPrice);
+        request.description().ifPresent(product::setDescription);
+        request.sellingType().ifPresent(product::setSellingType);
+        request.stock().ifPresent(product::setStock);
+        request.categoryId().ifPresent((categoryId) -> {
+            Category category = categoryService.findById(categoryId);
+            product.setCategory(category);
+        });
+        request.coverImage().ifPresent(product::setCoverImage);
+
+        return product.getId();
     }
 }
