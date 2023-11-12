@@ -7,8 +7,8 @@ CREATE DATABASE test_gamza_database;
 USE gamza_database;
 
 DROP TABLE IF EXISTS product_image;
-DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS category;
 
 CREATE TABLE category (
@@ -17,6 +17,15 @@ CREATE TABLE category (
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_category_id PRIMARY KEY (category_id)
+);
+
+CREATE TABLE image (
+                       image_id            BIGINT AUTO_INCREMENT,
+                       upload_file_name    VARCHAR(255),
+                       store_file_name     VARCHAR(255) NOT NULL,
+                       created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                       CONSTRAINT pk_image_id PRIMARY KEY (image_id)
 );
 
 CREATE TABLE product (
@@ -37,15 +46,6 @@ CREATE TABLE product (
         FOREIGN KEY (cover_image_id) REFERENCES image(image_id)
 );
 
-CREATE TABLE image (
-    image_id            BIGINT AUTO_INCREMENT,
-    upload_file_name    VARCHAR(255),
-    store_file_name     VARCHAR(255) NOT NULL,
-    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT pk_image_id PRIMARY KEY (image_id)
-);
-
 CREATE TABLE product_image (
     product_image_id    BIGINT AUTO_INCREMENT,
     product_id          BIGINT NOT NULL,
@@ -61,8 +61,8 @@ CREATE TABLE product_image (
 USE test_gamza_database;
 
 DROP TABLE IF EXISTS product_image;
-DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS product;
+DROP TABLE IF EXISTS image;
 DROP TABLE IF EXISTS category;
 
 CREATE TABLE category (
@@ -71,6 +71,15 @@ CREATE TABLE category (
     created_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at      TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     CONSTRAINT pk_category_id PRIMARY KEY (category_id)
+);
+
+CREATE TABLE image (
+                       image_id            BIGINT AUTO_INCREMENT,
+                       upload_file_name    VARCHAR(255),
+                       store_file_name     VARCHAR(255) NOT NULL,
+                       created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                       updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+                       CONSTRAINT pk_image_id PRIMARY KEY (image_id)
 );
 
 CREATE TABLE product (
@@ -86,15 +95,6 @@ CREATE TABLE product (
     CONSTRAINT pk_product_id PRIMARY KEY (product_id),
     CONSTRAINT fk_category_id
       FOREIGN KEY (category_id) REFERENCES category(category_id)
-);
-
-CREATE TABLE image (
-    image_id            BIGINT AUTO_INCREMENT,
-    upload_file_name    VARCHAR(255),
-    store_file_name     VARCHAR(255) NOT NULL,
-    created_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    updated_at          TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    CONSTRAINT pk_image_id PRIMARY KEY (image_id)
 );
 
 CREATE TABLE product_image (
