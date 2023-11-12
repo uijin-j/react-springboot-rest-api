@@ -50,7 +50,7 @@ public class Product extends BaseTimeEntity {
     private Image coverImage;
 
     @Builder.Default
-    @OneToMany(mappedBy = "product", cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "product", cascade = CascadeType.ALL)
     private List<ProductImage> images = new ArrayList<>();
 
 
