@@ -19,6 +19,7 @@ import static org.springframework.http.HttpStatus.NO_CONTENT;
 public class CategoryApiController {
     private final CategoryService categoryService;
 
+    @ResponseStatus(CREATED)
     @PostMapping
     public ApiResponse<CategoryResponse> createCategory(@RequestParam String name) {
         requireNonBlank(name, "카테고리명은 빈 값일 수 없습니다.");
