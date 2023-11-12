@@ -13,4 +13,7 @@ spring:
     hibernate:
       ddl-auto: none
 
+  messages:
+    basename: errors
+
 file.dir: "/Users/uijin/Devcourse/project_01/react-springboot-rest-api/shop_gamza/src/main/resources/file/"
