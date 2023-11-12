@@ -7,7 +7,6 @@ import org.springframework.core.io.UrlResource;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.net.MalformedURLException;
 
 @RestController
@@ -23,7 +22,7 @@ public class ImageApiController {
     }
 
     @PostMapping
-    public void uploadImage(@ModelAttribute MultipartFile image) throws IOException {
+    public void uploadImage(@ModelAttribute MultipartFile image) {
         fileService.storeFile(image);
     }
 }
