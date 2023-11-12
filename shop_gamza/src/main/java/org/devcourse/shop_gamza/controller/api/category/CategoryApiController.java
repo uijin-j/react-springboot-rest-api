@@ -39,6 +39,7 @@ public class CategoryApiController {
         return ApiResponse.ok(data);
     }
 
+    @ResponseStatus(NO_CONTENT)
     @DeleteMapping("/{id}")
     public ApiResponse deleteCategory(@PathVariable Long id) {
         categoryService.deleteById(id);

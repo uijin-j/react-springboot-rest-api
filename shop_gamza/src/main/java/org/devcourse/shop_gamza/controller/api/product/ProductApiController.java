@@ -29,6 +29,7 @@ public class ProductApiController {
     private final ProductService productService;
     private final FileService fileService;
 
+    @ResponseStatus(CREATED)
     @PostMapping
     public ApiResponse<ProductDetailResponse> createProduct(@Validated @ModelAttribute ProductCreateRequest request) {
         Image coverImage = fileService.storeFile(request.coverImage());
