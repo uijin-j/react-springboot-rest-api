@@ -6,6 +6,7 @@ import org.devcourse.shop_gamza.domain.category.Category;
 import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.repositoy.product.ProductRepository;
+import org.devcourse.shop_gamza.service.FileService;
 import org.devcourse.shop_gamza.service.category.CategoryService;
 import org.devcourse.shop_gamza.service.product.request.ProductCreateServiceRequest;
 import org.devcourse.shop_gamza.service.product.request.ProductUpdateServiceRequest;
@@ -21,10 +22,14 @@ import java.util.List;
 public class ProductService {
     private final ProductRepository productRepository;
     private final CategoryService categoryService;
+    private final FileService fileService;
 
     @Transactional
     public Product save(@Validated ProductCreateServiceRequest request) {
         Category category = categoryService.findById(request.categoryId());
+
+        Image coverImage = fileService.storeFile(request.coverImage());
+        List<Image> images = fileService.storeFiles(request.images());
 
         Product product = Product.builder()
                 .name(request.name())
@@ -33,10 +38,10 @@ public class ProductService {
                 .sellingType(request.sellingType())
                 .stock(request.stock())
                 .category(category)
-                .coverImage(request.coverImage())
+                .coverImage(coverImage)
                 .build();
 
-        for(Image image : request.images()) {
+        for(Image image : images) {
             product.addImage(image);
         }
 
@@ -56,6 +61,11 @@ public class ProductService {
     public Long updateProduct(Long id, @Validated ProductUpdateServiceRequest request) {
         Product product = findById(id);
 
+        request.coverImage().ifPresent((image) -> {
+            Image saved = fileService.storeFile(image);
+            product.setCoverImage(saved);
+        });
+
         request.name().ifPresent(product::setName);
         request.price().ifPresent(product::setPrice);
         request.description().ifPresent(product::setDescription);
@@ -65,7 +75,6 @@ public class ProductService {
             Category category = categoryService.findById(categoryId);
             product.setCategory(category);
         });
-        request.coverImage().ifPresent(product::setCoverImage);
 
         return product.getId();
     }

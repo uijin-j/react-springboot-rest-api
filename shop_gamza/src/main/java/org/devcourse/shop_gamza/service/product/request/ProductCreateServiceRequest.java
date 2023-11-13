@@ -3,11 +3,11 @@ package org.devcourse.shop_gamza.service.product.request;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.PositiveOrZero;
 import lombok.Builder;
-import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.SellingType;
 import org.devcourse.shop_gamza.domain.product.vo.Money;
 import org.devcourse.shop_gamza.domain.product.vo.Stock;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -24,6 +24,6 @@ public record ProductCreateServiceRequest (
         Stock stock,
         @NotNull
         Long categoryId,
-        Image coverImage,
-        List<Image> images) {
+        MultipartFile coverImage,
+        List<MultipartFile> images) {
 }
