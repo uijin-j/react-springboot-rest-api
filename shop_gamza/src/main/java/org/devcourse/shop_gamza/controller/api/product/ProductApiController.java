@@ -4,15 +4,20 @@ import lombok.RequiredArgsConstructor;
 import org.devcourse.shop_gamza.controller.api.ApiResponse;
 import org.devcourse.shop_gamza.controller.api.product.request.ProductCreateRequest;
 import org.devcourse.shop_gamza.controller.api.product.request.ProductUpdateRequest;
+import org.devcourse.shop_gamza.controller.api.product.response.PageResponse;
 import org.devcourse.shop_gamza.controller.api.product.response.ProductDetailResponse;
 import org.devcourse.shop_gamza.controller.api.product.response.ProductListResponse;
 import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.service.product.ProductService;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
+import static org.springframework.data.domain.Sort.Direction.DESC;
 import static org.springframework.http.HttpStatus.CREATED;
 
 @RestController
@@ -31,11 +36,13 @@ public class ProductApiController {
     }
 
     @GetMapping
-    public ApiResponse<List<ProductListResponse>> findAllProducts() {
-        List<Product> products = productService.findAll();
-        List<ProductListResponse> data = products.stream()
+    public ApiResponse<PageResponse> findAllProducts(@PageableDefault(size = 8, sort = "createdAt", direction = DESC) Pageable pageable) {
+        Page<Product> page = productService.findAll(pageable);
+        List<ProductListResponse> products = page.getContent().stream()
                 .map(ProductListResponse::of)
                 .toList();
+
+        PageResponse data = PageResponse.of(products, page);
 
         return ApiResponse.ok(data);
     }

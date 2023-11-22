@@ -10,6 +10,8 @@ import org.devcourse.shop_gamza.service.FileService;
 import org.devcourse.shop_gamza.service.category.CategoryService;
 import org.devcourse.shop_gamza.service.product.request.ProductCreateServiceRequest;
 import org.devcourse.shop_gamza.service.product.request.ProductUpdateServiceRequest;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
@@ -48,8 +50,10 @@ public class ProductService {
         return productRepository.save(product);
     }
 
-    public List<Product> findAll() {
-        return productRepository.findAllWithCoverImage();
+    public Page<Product> findAll(Pageable pageable) {
+        Page<Product> page = productRepository.findAll(pageable);
+        page.getContent().stream().forEach(p -> p.getCoverImage().getId()); // 강제 즉시 로딩
+        return page;
     }
 
     public Product findById(Long id) {
