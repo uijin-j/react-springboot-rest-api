@@ -1,6 +1,7 @@
 package org.devcourse.shop_gamza.controller.api.product.response;
 
 import lombok.Builder;
+import org.devcourse.shop_gamza.controller.api.image.response.ImageResponse;
 import org.devcourse.shop_gamza.domain.category.Category;
 import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.Product;
@@ -19,11 +20,12 @@ public record ProductDetailResponse(
         Integer stock,
         Category category,
         Image coverImage,
-        List<Image> images) {
+        List<ImageResponse> images) {
 
     public static ProductDetailResponse of(Product product) {
-        List<Image> imageList = product.getImages().stream()
+        List<ImageResponse> imageList = product.getImages().stream()
                 .map(ProductImage::getImage)
+                .map(image -> new ImageResponse(image.getId(), image.getStoreFileName()))
                 .toList();
 
         return ProductDetailResponse.builder()

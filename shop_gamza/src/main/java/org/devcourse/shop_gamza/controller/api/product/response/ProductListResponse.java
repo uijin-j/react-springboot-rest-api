@@ -1,6 +1,7 @@
 package org.devcourse.shop_gamza.controller.api.product.response;
 
 import lombok.Builder;
+import org.devcourse.shop_gamza.controller.api.image.response.ImageResponse;
 import org.devcourse.shop_gamza.domain.image.Image;
 import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.domain.product.SellingType;
@@ -11,15 +12,18 @@ public record ProductListResponse (
         String name,
         Integer price,
         SellingType sellingType,
-        Image coverImage
+        ImageResponse coverImage
 ) {
     public static ProductListResponse of(Product product) {
+        Image coverImage = product.getCoverImage();
+        ImageResponse imageResponse = new ImageResponse(coverImage.getId(), coverImage.getStoreFileName());
+
         return ProductListResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice().amount())
                 .sellingType(product.getSellingType())
-                .coverImage(product.getCoverImage())
+                .coverImage(imageResponse)
                 .build();
     }
 }
