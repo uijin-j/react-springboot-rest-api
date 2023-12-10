@@ -53,6 +53,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler
     public ApiResponse exceptionHandler(Exception e) {
         log.error(e.getMessage());
+        e.printStackTrace();
 
         return ApiResponse.error(INTERNAL_SERVER_ERROR, e.getMessage());
     }
@@ -62,7 +63,8 @@ public class GlobalExceptionHandler {
         for (String code : codes) {
             try {
                 return messageSource.getMessage(code, error.getArguments(), Locale.KOREA);
-            } catch (NoSuchMessageException ignored) {}
+            } catch (NoSuchMessageException ignored) {
+            }
         }
         return error.getDefaultMessage();
     }
