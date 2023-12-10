@@ -16,4 +16,10 @@ spring:
   messages:
     basename: errors
 
+jwt:
+  header: token
+  issuer: shop_gamza
+  secret-key: EENY5W0eegTf1naQB2eDeyCLl5kRS2b8xa5c4qLdS0hmVjtbvo8tOyhPMcAmtPuQ
+  expiry-seconds: 3600
+
 file.dir: "/Users/uijin/Devcourse/project_01/react-springboot-rest-api/shop_gamza/src/main/resources/file/"
