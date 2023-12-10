@@ -24,6 +24,7 @@ public record ProductCreateRequest(
         Integer stock,
         @NotNull
         Long categoryId,
+        @NotNull
         MultipartFile coverImage,
         List<MultipartFile> images) {
 
