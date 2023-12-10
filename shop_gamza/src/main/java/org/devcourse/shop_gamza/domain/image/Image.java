@@ -1,7 +1,6 @@
 package org.devcourse.shop_gamza.domain.image;
 
 import jakarta.persistence.*;
-import jakarta.validation.constraints.NotBlank;
 import lombok.*;
 import org.devcourse.shop_gamza.domain.BaseTimeEntity;
 

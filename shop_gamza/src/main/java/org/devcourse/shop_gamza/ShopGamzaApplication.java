@@ -11,5 +11,4 @@ public class ShopGamzaApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ShopGamzaApplication.class, args);
 	}
-
 }
