@@ -24,20 +24,19 @@ public record ProductCreateRequest(
         Integer stock,
         @NotNull
         Long categoryId,
-        @NotNull
         MultipartFile coverImage,
         List<MultipartFile> images) {
 
-        public ProductCreateServiceRequest toServiceRequest() {
-                return ProductCreateServiceRequest.builder()
-                        .name(name)
-                        .price(Money.create(price))
-                        .description(description)
-                        .sellingType(sellingType)
-                        .stock(Stock.create(stock))
-                        .categoryId(categoryId)
-                        .coverImage(coverImage)
-                        .images(images)
-                        .build();
-        }
+    public ProductCreateServiceRequest toServiceRequest() {
+        return ProductCreateServiceRequest.builder()
+                .name(name)
+                .price(Money.create(price))
+                .description(description)
+                .sellingType(sellingType)
+                .stock(Stock.create(stock))
+                .categoryId(categoryId)
+                .coverImage(coverImage)
+                .images(images)
+                .build();
+    }
 }

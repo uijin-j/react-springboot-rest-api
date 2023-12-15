@@ -1,8 +1,7 @@
 package org.devcourse.shop_gamza.service;
 
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.devcourse.shop_gamza.domain.image.Image;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,10 +12,15 @@ import java.util.List;
 import java.util.UUID;
 
 @Component
-@RequiredArgsConstructor
+@Slf4j
 public class FileService {
-    @Value("${file.dir}")
     private String fileDir;
+
+    public FileService() {
+        String root = System.getProperty("user.dir");
+        fileDir = root + "/file/";
+        log.info(fileDir);
+    }
 
     public List<Image> storeFiles(List<MultipartFile> multipartFiles) {
         List<Image> storeFileResult = new ArrayList<>();

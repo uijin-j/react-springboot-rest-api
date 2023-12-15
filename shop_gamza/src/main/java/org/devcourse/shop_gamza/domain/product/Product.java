@@ -18,7 +18,8 @@ import java.util.List;
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Product extends BaseTimeEntity {
-    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_id")
     private Long id;
 
@@ -55,7 +56,7 @@ public class Product extends BaseTimeEntity {
 
 
     public void addImage(Image image) {
-        ProductImage productImage =  ProductImage.builder()
+        ProductImage productImage = ProductImage.builder()
                 .product(this)
                 .image(image)
                 .build();

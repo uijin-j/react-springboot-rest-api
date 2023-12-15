@@ -43,7 +43,7 @@ public class ProductService {
                 .coverImage(coverImage)
                 .build();
 
-        for(Image image : images) {
+        for (Image image : images) {
             product.addImage(image);
         }
 
@@ -52,13 +52,18 @@ public class ProductService {
 
     public Page<Product> findAll(Pageable pageable) {
         Page<Product> page = productRepository.findAll(pageable);
-        page.getContent().stream().forEach(p -> p.getCoverImage().getId()); // 강제 즉시 로딩
+        page.getContent().stream().forEach(p -> {
+            if (p.getCoverImage() != null) {
+                p.getCoverImage().getId(); // 강제 즉시 로딩
+            }
+        });
+
         return page;
     }
 
     public Product findById(Long id) {
         return productRepository.findByIdWithCoverImageAndCategoryAndImages(id)
-                .orElseThrow(() -> new EntityNotFoundException("아이디 '%d'에 해당하는 상품이 존재하지 않습니다." .formatted(id)));
+                .orElseThrow(() -> new EntityNotFoundException("아이디 '%d'에 해당하는 상품이 존재하지 않습니다.".formatted(id)));
     }
 
     @Transactional

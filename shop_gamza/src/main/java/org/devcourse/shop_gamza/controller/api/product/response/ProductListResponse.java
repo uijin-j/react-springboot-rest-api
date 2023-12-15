@@ -7,7 +7,7 @@ import org.devcourse.shop_gamza.domain.product.Product;
 import org.devcourse.shop_gamza.domain.product.SellingType;
 
 @Builder
-public record ProductListResponse (
+public record ProductListResponse(
         Long id,
         String name,
         Integer price,
@@ -15,15 +15,18 @@ public record ProductListResponse (
         ImageResponse coverImage
 ) {
     public static ProductListResponse of(Product product) {
-        Image coverImage = product.getCoverImage();
-        ImageResponse imageResponse = new ImageResponse(coverImage.getId(), coverImage.getStoreFileName());
-
-        return ProductListResponse.builder()
+        ProductListResponseBuilder builder = ProductListResponse.builder()
                 .id(product.getId())
                 .name(product.getName())
                 .price(product.getPrice().amount())
-                .sellingType(product.getSellingType())
-                .coverImage(imageResponse)
-                .build();
+                .sellingType(product.getSellingType());
+
+        Image coverImage = product.getCoverImage();
+        if (coverImage != null) {
+            ImageResponse imageResponse = new ImageResponse(coverImage.getId(), coverImage.getStoreFileName());
+            builder.coverImage(imageResponse);
+        }
+
+        return builder.build();
     }
 }
